@@ -1,0 +1,96 @@
+main.frontpage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 96px;
+  margin-bottom: 96px;
+
+  .splash {
+    h1 {
+      line-height: 57px;
+      font-size: 48px;
+      font-weight: 300;
+      color: #554d56;
+    }
+
+    h2 {
+      margin-top: 24px;
+      line-height: 48px;
+      font-size: 36px;
+      font-weight: 300;
+      color: #979197;
+    }
+  }
+
+  .demo {
+    margin-top: 72px;
+
+    .demo-container {
+      max-width: 1024px;
+      max-height: 605px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 8px 0 rgba(193, 190, 193, 0.52);
+      border-radius: 6px;
+      background-image: url("/static/demo/landingPoster.png");
+      background-size: contain;
+
+      video {
+        // width:100%;
+        width:600px;
+      }
+    }
+  }
+
+  .testimonials {
+    margin-top: 72px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 24px;
+
+    h1 {
+      line-height: 28px;
+      font-size: 24px;
+      font-weight: 500;
+      color: #554d56;
+    }
+
+    h2 {
+      width: 100%;
+      line-height: 26px;
+      font-size: 18px;
+      font-weight: normal;
+      color: #979197;
+      margin: 24px 0 24px;
+    }
+  }
+
+  .call-to-action {
+    margin-top: 115px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .get-started {
+      margin-top: 32px;
+    }
+
+    img {
+      width: 400px;
+      height: 300px;
+    }
+
+    h1 {
+      line-height: 42px;
+      font-size: 36px;
+      font-weight: 300;
+      color: #554d56;
+      margin-top: 36px;
+      text-align: center;
+      padding: 0 24px;
+    }
+  }
+}

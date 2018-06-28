@@ -1,0 +1,46 @@
+.dash {
+  display: flex;
+  width: 100%;
+  padding: 0 32px;
+
+  .left {
+    .followUpLogo {
+      width: 75px;
+      height: 100px;
+    }
+  }
+  .content {
+    width: 100%;
+    padding-left: 32px;
+
+    .search {
+      font-size: 28px;
+      height: 40px;
+      padding: 4px 12px;
+      width: 100%;
+    }
+
+    // span {
+    //   display: flex;
+    //   align-items: center;
+    //   margin-bottom: 32px;
+    // }
+    //
+    // span::before {
+    //   content: '⌕';
+    //   font-size: 2em;
+    //   font-weight: 600;
+    // }
+
+    .graph {
+      max-width: 1024px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 8px 0 rgba(193, 190, 193, 0.52);
+      border-radius: 6px;
+      background-size: contain;
+
+      margin-bottom: 64px;
+    }
+  }
+}
