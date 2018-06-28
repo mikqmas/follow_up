@@ -4,10 +4,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       scope :clover do
         get "/auth", to: "clovers#auth"
-        post "/webhook", to: "clovers#webhook"
         get "/test", to: "clovers#test"
         get "/login", to: "clovers#login"
       end
+
+      post "/webhook", to: "webhooks#notify"
 
       # User
       post "/users", to: "users#create"
