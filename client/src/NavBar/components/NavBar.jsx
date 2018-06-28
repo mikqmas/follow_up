@@ -22,7 +22,7 @@ class NavBar extends React.PureComponent {
               <div>Go to Dashboard</div>
             </a>
             :
-            <a href="/login">
+            <a href={`https://${CLOVER_BASE}/oauth/authorize?client_id=${APP_ID}`}>
               <div>Login</div>
             </a>
           }

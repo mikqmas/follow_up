@@ -13,7 +13,7 @@ import Feedback from './Feedback/components/Feedback';
 import Clover from './Clover/components/Clover';
 import NotFound from './NotFound';
 
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 const appRouter = (
   <Router>
@@ -25,11 +25,10 @@ const appRouter = (
       <Route exact path="/feedback" component={Feedback}/>
       <Route exact path="/clover" component={Clover}/>
       <Route exact path="/test" component={Dash}/>
+      <Route component={ NotFound } />
     </Switch>
   </Router>
 )
 
 ReactDOM.render(appRouter, document.getElementById('root'));
-// registerServiceWorker();
-
-// <Route component={ NotFound } />
+registerServiceWorker();
