@@ -33,7 +33,7 @@ module Api::V1
       user = User.find_by(merchant_id: merchant_id)
       if user
         session = user.reset_session_token!
-        redirect_to "/dash?session=#{session}"
+        redirect_to "http://localhost:3000/login?session=#{session}"
         # render json: {token: token}
       else
         # create new user
@@ -41,7 +41,7 @@ module Api::V1
           user = create_user(token, merchant_id)
           if user.save
             session = user.reset_session_token!
-            redirect_to "/dash?session=#{session}"
+            redirect_to "http://localhost:3000/login?new=true&session=#{session}"
           else
             redirect_to "/signup?owner=#{owner}&name=#{name}&email=#{email}"
           end

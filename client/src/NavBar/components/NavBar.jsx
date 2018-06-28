@@ -1,10 +1,9 @@
 import React from 'react';
-
+import Util from '../../Util';
 import '../styles/Navbar.css';
 
 class NavBar extends React.PureComponent {
   render() {
-    const loggedIn = false;
     return(
       <header>
         <nav className="left">
@@ -17,13 +16,13 @@ class NavBar extends React.PureComponent {
             <div>Why Follow Up?</div>
           </a>
           {
-            loggedIn ?
+            Util.isLoggedIn() ?
             <a href="/dash">
               <div>Go to Dashboard</div>
             </a>
             :
-            <a href={`https://${CLOVER_BASE}/oauth/authorize?client_id=${APP_ID}`}>
-              <div>Login</div>
+            <a href={`https://${Util.CLOVER_BASE}/oauth/authorize?client_id=${Util.APP_ID}`}>
+              <div>Login with Clover</div>
             </a>
           }
         </nav>

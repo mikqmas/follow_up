@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Switch} from 'react-router-dom';
+import Util from './Util';
 import './index.css';
 
 //components
@@ -20,7 +21,13 @@ const appRouter = (
     <Switch>
       <Route exact path="/" component={App}/>
       <Route exact path="/login" component={Login}/>
-      <Route exact path="/dash" component={Dash}/>
+      <Route exact path="/dash" render={() => (
+        Util.isLoggedIn() ? (
+          <Dash />
+        ) : (
+          <Login />
+        )
+      )}/>
       <Route exact path="/email" component={Email}/>
       <Route exact path="/feedback" component={Feedback}/>
       <Route exact path="/clover" component={Clover}/>

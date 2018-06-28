@@ -21,6 +21,67 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <script type="text/javascript">
+      if (!window.localStorage) {
+        window.localStorage = {
+          getItem: function (sKey) {
+            if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
+            return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+          },
+          key: function (nKeyId) {
+            return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
+          },
+          setItem: function (sKey, sValue) {
+            if(!sKey) { return; }
+            document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+            this.length = document.cookie.match(/\=/g).length;
+          },
+          length: 0,
+          removeItem: function (sKey) {
+            if (!sKey || !this.hasOwnProperty(sKey)) { return; }
+            document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+            this.length--;
+          },
+          hasOwnProperty: function (sKey) {
+            return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+          }
+        };
+        window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
+      }
+
+      // multi-tab sessionStorage
+      var sessionStorage_transfer = function(event) {
+        if(!event) { event = window.event; } // ie suq
+        if(!event.newValue) return;          // do nothing if no value to work with
+        if (event.key == 'getSessionStorage') {
+          // another tab asked for the sessionStorage -> send it
+          localStorage.setItem('sessionStorage', JSON.stringify(sessionStorage));
+          // the other tab should now have it, so we're done with it.
+          localStorage.removeItem('sessionStorage'); // <- could do short timeout as well.
+        } else if (event.key == 'sessionStorage' && !sessionStorage.length) {
+          // another tab sent data <- get it
+          var data = JSON.parse(event.newValue);
+          for (var key in data) {
+            sessionStorage.setItem(key, data[key]);
+          }
+        }
+      };
+
+      // listen for changes to localStorage
+      if(window.addEventListener) {
+        window.addEventListener("storage", sessionStorage_transfer, false);
+      } else {
+        window.attachEvent("onstorage", sessionStorage_transfer);
+      };
+
+
+      // Ask other tabs for session storage (this is ONLY to trigger event)
+      if (!sessionStorage.length) {
+        localStorage.setItem('getSessionStorage', 'foobar');
+        localStorage.removeItem('getSessionStorage', 'foobar');
+      };
+    </script>
     <title>React App</title>
   </head>
   <body>
