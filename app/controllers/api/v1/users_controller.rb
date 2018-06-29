@@ -19,7 +19,7 @@ module Api::V1
 
     private
     def user_params
-      params.permit(:name, :merchant_id, :token, :email)
+      params.permit(:name, :merchant_uuid, :token, :email)
     end
   end
 end

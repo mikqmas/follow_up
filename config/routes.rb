@@ -7,11 +7,10 @@ Rails.application.routes.draw do
         get "/test", to: "clovers#test"
         get "/login", to: "clovers#login"
       end
-
-      post "/webhook", to: "webhooks#notify"
-
       # User
       post "/users", to: "users#create"
+      post "/webhook", to: "webhooks#notify"
+      post "/webhook2", to: "webhooks#test"
     end
   end
 end

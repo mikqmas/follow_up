@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627002948) do
+ActiveRecord::Schema.define(version: 20180629170028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "customer_uuid"
+    t.string "merchant_uuid"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -30,14 +39,25 @@ ActiveRecord::Schema.define(version: 20180627002948) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "emails", force: :cascade do |t|
+    t.string "email_address"
+    t.string "order_uuid"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_emails_on_customer_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.string "merchant_id", null: false
-    t.string "session_token"
+    t.string "merchant_uuid", null: false
+    t.string "session_token", null: false
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "customers", "users"
+  add_foreign_key "emails", "customers"
 end

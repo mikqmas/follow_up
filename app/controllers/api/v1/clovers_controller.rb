@@ -21,9 +21,9 @@ class Api::V1::CloversController < ApplicationController
     end
   end
 
-  def login(token, merchant_id)
+  def login(token, merchant_uuid)
     # check if user exists
-    user = User.find_by(merchant_id: merchant_id)
+    user = User.find_by(merchant_uuid: merchant_uuid)
     if user
       session = user.reset_session_token!
       redirect_to "http://localhost:3000/login?session=#{session}"
@@ -31,7 +31,7 @@ class Api::V1::CloversController < ApplicationController
     else
       # create new user
       begin
-        user = create_user(token, merchant_id)
+        user = create_user(token, merchant_uuid)
         if user.save
           session = user.reset_session_token!
           redirect_to "http://localhost:3000/login?new=true&session=#{session}"
@@ -45,8 +45,8 @@ class Api::V1::CloversController < ApplicationController
     end
   end
 
-  def get_merchant(merchant_id, token)
-    url = "https://sandbox.dev.clover.com/v3/merchants/#{merchant_id}/?expand=owner"
+  def get_merchant(merchant_uuid, token)
+    url = "https://sandbox.dev.clover.com/v3/merchants/#{merchant_uuid}/?expand=owner"
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -62,12 +62,12 @@ class Api::V1::CloversController < ApplicationController
     end
   end
 
-  def create_user(token, merchant_id)
-    merchant_json = get_merchant(merchant_id, token)
+  def create_user(token, merchant_uuid)
+    merchant_json = get_merchant(merchant_uuid, token)
     owner = merchant_json['owner']
     name = owner['name']
     email = owner['email']
-    User.new(merchant_id: merchant_id, name: name, email: email, token: token)
+    User.new(merchant_uuid: merchant_uuid, name: name, email: email, token: token)
   end
 
   def is_new_order(order)
